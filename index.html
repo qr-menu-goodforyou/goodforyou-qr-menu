@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GOOD FOR YOU | Hoş Geldiniz</title>
+        <link rel="stylesheet" href>
+
+        <style>
+    /* ===============================
+       GENEL DÜZEN VE HİZALAMA
+       =============================== */
+
+
+
+    body {
+      background-image: url('menu_arkaplan.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: #333333;
+
+    }
+    @media (max-width: 768px) {
+    body {
+        /* Mobil cihazlarda "fixed" sorun yaratır, bu yüzden kaldırıyoruz. */
+        background-attachment: scroll; 
+    }
+}
+
+    .welcome-container {
+        /* Tüm ekranı kapla ve içeriği dikeyde ortala */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        align-items: center; 
+        text-align: center;
+        padding: 20px;
+    }
+
+    /* 1. Başlık Alanı (Ortalama için Flex kullanılıyor) */
+    .welcome-title-wrapper {
+        /* İkon kaldırıldığı için bu artık sadece metin grubunu ortalar */
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        margin-bottom: 20px; 
+    }
+
+    /* 2. Metin Grubunun İç Hizalaması */
+    .welcome-text-group {
+        display: flex;
+        flex-direction: column; 
+        /* İkon olmadığı için metni merkeze hizalarız */
+        align-items: center; 
+        text-align: center;
+    }
+
+
+    /* ===============================
+       BAŞLIK STİLLERİ
+       =============================== */
+
+    /* GOOD FOR YOU metni (Üst Satır) */
+    .welcome-title-main {
+        font-size: 3em; 
+        color: white;
+        margin: 0; 
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        line-height: 1.2;
+    }
+    
+    /* HOŞGELDİNİZ metni (Alt Satır) */
+    .welcome-title-sub {
+        font-size: 3em; 
+        color: white;
+        margin: 0; 
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        line-height: 1.2;
+    }
+    
+    /* Açıklama Metni */
+    .welcome-text {
+        font-size: 1.2em;
+        color: #ffffff;
+        margin-bottom: 40px;
+        max-width: 400px;
+    }
+
+    /* ===============================
+       MENÜ BUTON STİLLERİ
+       =============================== */
+    .menu-button {
+        display: inline-block;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #1a1a1a; 
+        background-color: #e08e0b; 
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s, transform 0.1s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .menu-button:hover {
+        background-color: #f0a020;
+        transform: translateY(-2px);
+    }
+
+    /* ===============================
+       MOBİL CİHAZ UYUMLULUĞU (RESPONSIVE)
+       =============================== */
+    @media (max-width: 480px) {
+        .welcome-title-main, .welcome-title-sub {
+            font-size: 2em; /* Başlık fontunu küçült */
+        }
+        
+        .welcome-text {
+            font-size: 1em;
+        }
+
+        .menu-button {
+            padding: 12px 25px;
+            font-size: 1.1em;
+        }
+    }
+    </style>
+    </head>
+    <body>
+
+        <div class="welcome-container">
+
+            <div class="welcome-title-wrapper">
+
+                <div class="welcome-text-group">
+                    <h1 class="welcome-title-main">GOOD FOR YOU</h1>
+                    <h2 class="welcome-title-sub">HOŞGELDİNİZ</h2>
+                </div>
+            </div>
+
+            <p class="welcome-text">Kaliteli kahve, lezzetli atıştırmalıklar ve
+                sıcak bir ortam... Sizi menümüzü keşfetmeye davet ediyoruz.</p>
+
+            <a href="menu.html" class="menu-button">Menüyü Görüntüle</a>
+
+        </div>
+    </body>
+</html>

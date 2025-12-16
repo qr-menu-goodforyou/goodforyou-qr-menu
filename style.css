@@ -1,0 +1,478 @@
+/* ===============================
+   01. GENEL AYARLAR VE ARKA PLAN
+   =============================== */
+html {
+    overflow-x: hidden;
+    height: 100%; /* Sayfa yüksekliğinin %100 olmasını garantiler */
+}
+
+body {
+    overflow-x: hidden;
+    font-family: 'Open Sans', sans-serif, Arial;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a; 
+    color: #e0e0e0; 
+    /* 🟢 KRİTİK DÜZELTME 1: Sticky'nin çalışması için boyutları zorla */
+    width: 100vw; /* Tam Görünüm Alanı Genişliği */
+    min-height: 100vh; /* En az Görünüm Alanı Yüksekliği */
+    scroll-padding-top: 70px; /* Navigasyonun yüksekliği (yaklaşık 50px) + biraz boşluk (20px) */
+    /* Arka plan görseli stilleri */
+    background-image: url('menu_arka_plan2.jpg'); /* DOSYA YOLUNUZU KONTROL EDİN */
+    
+    /* 🔴 GÜNCELLEME 1: Resim boyutunu otomatik yapıyoruz */
+    background-size: initial; 
+    background-position: center center; /* Ortadan değil, üstten başlasın */
+    background-attachment: scroll; /* Sayfa ile birlikte kaysın, daha iyi kapsama için */
+    
+    /* 🔴 GÜNCELLEME 2: Görseli yatayda ve dikeyde tekrarla */
+    background-repeat: repeat-y; 
+    
+    line-height: 1.6;
+}
+@media (min-width: 769px) {
+    body {
+        background-attachment: fixed;
+    }}
+/* ===============================
+  02. ÜST BAŞLIK (GOOD FOR YOU) STİLİ
+  =============================== */
+.header-text {
+    position: relative; 
+    
+    /* İçerik Ortalama (İkon ve Başlık yan yana duran grubu ortalar) */
+    display: flex; 
+    justify-content: center; /* Yatayda ortalama */
+    
+    width: 100%; 
+    
+    /* Gerekirse, navigasyonun üstünde kalmasını sağlamak için düşük bir z-index ekleyebiliriz,
+       ancak şu anki yapımızda (navigasyon z-index: 9999) bu gereksizdir ve kaldırılmıştır. */
+
+    padding-top: 70px; 
+    padding-bottom: 20px; /* Navigasyon ile başlık arasına boşluk bırakır */
+    background-color: transparent; 
+}
+/* Başlık Stilleri */
+.header-text h1 {
+    font-size: 1.8em; 
+    color: white; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+    margin: 0; 
+    letter-spacing: 4px; 
+    line-height: 1.2; 
+}
+
+/* Başlık altı ve üstü için ince çizgiler */
+.header-text h1::before,
+.header-text h1::after {
+    content: ''; 
+    display: block; 
+    width: 80px; 
+    height: 1px; 
+    background-color: white; 
+    margin: 10px auto; 
+}
+
+/* Başlık ve Resmi Yan Yana Getiren ve Dikeyde Ortalayan Kapsayıcı */
+.header-with-image-centered {
+    display: flex; 
+    align-items: center; /* Resim ve h1'i dikeyde ortalar */
+    gap: 10px; 
+}
+
+/* Resim Mutlak Konumlandırma İptali (Gerekliyse) */
+.header-with-image-centered .header-icon {
+    position: static !important; 
+    top: auto !important; 
+    right: auto !important; 
+
+    /* Boyutlandırma ve boşluk ayarları */
+    height: 35px; 
+    width: auto; 
+    align-self: center; 
+}
+
+/* Ek Resim Boyutu (Eski kodunuzdaki img stili) */
+.header-with-image-centered img {
+    /* Bu, yukarıdaki .header-icon sınıfının üzerine yazılabilir, ancak yerinde kalsın. */
+    position: static; 
+    height: 35px; 
+    width: auto; 
+}
+
+
+@media (max-width: 768px) {
+    /* Bu medya sorgusu, ekran genişliği 768px veya daha az olduğunda çalışır.
+    
+    .header-with-image-centered, 
+    .header-with-image-centered .header-icon
+    
+    seçicileri, gizlenmeye neden olan olası 'display: none;' kurallarını 
+    zorla 'display: flex;' ve 'visibility: visible;' yaparak geçersiz kılar.
+    */
+    .header-with-image-centered {
+        display: flex !important; 
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    .header-with-image-centered .header-icon {
+        display: block !important; /* İkonun görünür olmasını sağlar */
+        visibility: visible !important; /* Başka bir gizleme kuralını (visibility: hidden) iptal eder */
+        position: static !important; /* Konumlandırmayı normal akışa döndürür */
+    }
+}
+
+
+/* ===============================
+   03. MENÜ KONTEYNERİ (TEK SÜTUN)
+   =============================== */
+.menu-container {
+    max-width: 600px; 
+    margin: 20px auto 50px auto; 
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.65); 
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+/* ===============================
+   04. KATEGORİ BAŞLIĞI
+   =============================== */
+.menu-category-title {
+    color: #fff; 
+    text-align: center;
+    font-size: 1.5em; /* Küçültülmüş boyut */
+    margin-top: 30px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5); 
+    padding-bottom: 10px;
+z-index: 1; /* Navigasyon z-index: 9999'dan çok daha düşük */
+    position: relative; /* z-index'in çalışması için position vermeliyiz */
+}
+
+
+
+/* ===============================
+   05. MENÜ ÖĞESİ VE ETKİLEŞİM
+   =============================== */
+.menu-item {
+    padding: 10px 15px; 
+    color: white; 
+    font-size: 1.1em;
+    position: relative;
+    transition: background-color 0.3s ease; 
+    cursor: pointer; 
+}
+
+/* Hover Efekti (Koyu kahve tonu) */
+.menu-item:hover {
+    background-color: rgba(60, 40, 30, 0.8); 
+}
+
+/* ===============================
+   06. İSİM, FİYAT VE ÇİZGİ HİZALAMASI (item-header)
+   =============================== */
+.item-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-end; 
+    position: relative;
+}
+
+/* ÜRÜN ADI ve FİYAT ARASINDAKİ DÜZ ÇİZGİ */
+.item-header::after {
+    content: "";
+    flex-grow: 1; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8); 
+    margin: 0 0 5px 10px; 
+    order: 2; 
+}
+
+.item-name, .item-price {
+    white-space: nowrap; 
+    z-index: 2;
+    background-color: transparent; /* Koyu kutu kaldırıldı */
+    font-weight: bold;
+}
+
+.item-name {
+    padding-right: 15px; 
+    order: 1;
+}
+
+.item-price {
+    text-align: right;
+    padding-left: 15px; 
+    order: 3;
+}
+
+/* ===============================
+   07. ÜRÜN AÇIKLAMASI VE DİĞERLERİ
+   =============================== */
+.item-description {
+    color: rgba(255, 255, 255, 0.6); /* Soluk beyaz */
+    font-size: 0.9em; 
+    font-style: italic;
+    margin-top: 5px; 
+    margin-bottom: 10px; 
+    padding-left: 0; 
+    width: 100%; 
+    line-height: 1.3;
+}
+
+/* Tatlılar Notu Stili */
+.note-text {
+    color: white;
+    text-align: center;
+    font-size: 1em;
+    padding: 20px 0;
+    font-style: italic;
+    border-top: 1px solid rgba(255, 255, 255, 0.5); 
+    margin-top: 20px;
+}
+
+/* ===============================
+   08. ANA KATEGORİ NAVİGASYONU (YAPIŞKAN, KAYDIRILABİLİR, ALT ÇİZGİLİ)
+   =============================== */
+.main-category-nav {
+    position: -webkit-sticky;
+    position: sticky; 
+    top: 0; 
+    width: 100%;
+    
+    /* Yan yana diz ve alt satıra geçme (Kaydırmayı zorlar) */
+    display: flex; 
+    flex-wrap: nowrap;
+    
+    justify-content: center; 
+    
+    /* Yatay kaydırmayı etkinleştir */
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+    
+    padding: 15px 0; 
+    
+    /* 🔴 GÜNCEL: Çok hafif şeffaf arka plan */
+    background-color: rgba(0, 0, 0, 0.4); 
+    
+    border-top: 1px solid white; 
+    /* 🔴 GÜNCEL: Alt çizgi rengi (daha görünür kahve tonu) */
+    border-bottom: 2px solid #3b281f; 
+    
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Hafif gölge */
+    z-index: 9999;
+}
+
+.main-category-nav a {
+    color: white; 
+    text-decoration: none;
+    padding: 8px 10px; 
+    margin: 0 5px; 
+    font-size: 1.1em; 
+    font-weight: bold;
+    background-color: transparent; 
+    border-radius: 0; 
+    transition: color 0.3s; 
+    
+    /* Linklerin alt satıra geçmesini engelle (Kaydırılabilir yapar) */
+    white-space: nowrap; 
+    min-width: fit-content;
+    display: inline-block;
+}
+
+/* Linklerin üzerine gelme (hover) efekti */
+.main-category-nav a:hover {
+    color: #e08e0b; 
+    background-color: transparent;
+}
+
+/* Aktif link stili (JS tarafından eklenir) */
+.main-category-nav a.active {
+    color: #e08e0b; 
+    position: relative;
+}
+
+/* Aktif link altındaki nokta */
+.main-category-nav a.active::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #e08e0b; 
+    border-radius: 50%;
+    position: absolute;
+    bottom: -10px; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* ===============================
+   10. ALT BİLGİ (FOOTER) STİLİ - NİHAİ SOLA HİZALI & KOMPAKT
+   =============================== */
+.main-footer {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: white;
+    padding: 20px 20px 10px 20px; 
+    margin-top: 40px; 
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); 
+}
+
+.footer-container {
+    max-width: 900px; 
+    margin: 0 auto;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: flex-start; 
+    
+    /* 🔴 GÜNCELLEME: Yatay boşluğu iyice azalttık */
+    gap: 10px; 
+    
+    text-align: left; 
+}
+
+.footer-section {
+    /* Esnekliği kapatıp sadece içeriği kadar yer kaplamasını sağlıyoruz */
+    flex: 0 0 auto; 
+    min-width: 200px; 
+    
+    /* Bölümler arası boşluğu sağdan padding ile kontrol et */
+    padding: 5px 20px 5px 0; 
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    text-align: left;
+}
+
+/* GOOD FOR YOU ve Telif Hakkı (footer-brand) */
+.footer-brand {
+    padding-top: 5px; 
+    align-items: flex-start;
+}
+
+.main-footer h3 {
+    font-size: 1.6em;
+    margin-top: 0;
+    margin-bottom: 2px; 
+    letter-spacing: 2px;
+    color: #f0f0f0;
+    text-align: left;
+}
+
+.copyright {
+    font-size: 0.8em;
+    margin-top: 5px; 
+    color: rgba(255, 255, 255, 0.6);
+    text-align: left;
+}
+
+/* İletişim Başlığı */
+.main-footer h4 { 
+    font-size: 1.2em;
+    margin-top: 10px;
+    margin-bottom: 5px; 
+    color: #f0f0f0;
+    text-align: left;
+}
+
+/* İletişim Bilgileri (Adres, Telefon, E-posta) */
+.footer-contact p {
+    margin: 1px 0; 
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.2;
+    text-align: left;
+}
+
+.footer-contact p i {
+    margin-right: 5px;
+    font-size: 1.1em;
+    color: #e08e0b; 
+}
+
+/* Sosyal Medya İkonları */
+.footer-social {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start; 
+    padding-top: 5px; 
+    margin-top: 5px;
+}
+
+/* Sosyal Medya İkonlarının Kapsayıcısı (Yan yana dizme) */
+.social-links-wrapper {
+    display: flex;
+    gap: 15px; 
+    align-items: center;
+    margin-top: 5px; 
+}
+
+.footer-social a {
+    color: #e08e0b; 
+    font-size: 1.4em; 
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    margin: 0; 
+}
+
+.footer-social a:hover {
+    color: white; 
+}
+
+/* ===============================
+   MOBİL (768px Altı) DÜZENLEME - SOLA HİZALI & KOMPAKT
+   =============================== */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; 
+        align-items: flex-start; 
+        text-align: left;
+        gap: 0; 
+    }
+    
+    .footer-section {
+        width: 90%; 
+        align-items: flex-start; 
+        text-align: left;
+        padding: 5px 0; 
+        margin-bottom: 10px; 
+    }
+    
+    .footer-brand h3,
+    .footer-contact p,
+    .main-footer h4,
+    .copyright {
+        text-align: left;
+    }
+
+    .footer-social {
+        align-items: flex-start; 
+    }
+    
+    .social-links-wrapper {
+        justify-content: flex-start;
+    }
+}
+a {
+    color: white !important;
+    /* Varsayılan Rengi (Maviyi) Beyaz Yapın */
+    text-decoration: none !important; /* Alt çizgiyi kaldırır */
+}
+
+a:visited {
+    /* Tıklanmış linklerin rengini de beyaz yapın (Koyu mor/mavi olmasını engeller) */
+    color: white !important;
+}
+
+a:hover,
+a:focus,
+a:active {
+    /* Fare üzerine gelme, odaklanma veya tıklama anındaki rengi de beyaz yapın */
+    color: white !important; 
+    /* Eğer klavye ile odaklanıldığında çıkan çerçeveyi kaldırmak istiyorsanız: */
+    outline: none !important; 
+}
